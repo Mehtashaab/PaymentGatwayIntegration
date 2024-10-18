@@ -1,19 +1,42 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/Login.jsx";
-import Signup from "./components/Signup.jsx";
-import Subscription from "./components/Subcription.jsx";
-import InitiatePayment from "./components/InitiatePayment.jsx";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Subscription from "./components/Subscription";
+import InitiatePayment from "./components/InitiatePayment";
+import Layout from "./Layout";
+import { AuthProvider } from "./context/AuthContext";
+import Home from "./components/Home";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/subscription" element={<Subscription />} />
-        <Route path="/payment" element={<InitiatePayment />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/subscription"
+              element={
+                <PrivateRoute>
+                  <Subscription />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/payment"
+              element={
+                <PrivateRoute>
+                  <InitiatePayment />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </Layout>
+      </Router>
+    </AuthProvider>
   );
 }
 

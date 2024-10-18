@@ -1,20 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";  // Adjust the import path if needed
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");  // For error messages
   const navigate = useNavigate();
+  const { login } = useAuth();  // Access login function from AuthContext
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");  // Clear previous error messages
+
     try {
       const response = await axios.post("/api/auth/login", { email, password });
-      localStorage.setItem("accessToken", response.data.accessToken);
-      navigate("/subscription");
+
+      // Call the login function from AuthContext to update state and localStorage
+      login(response.data.accessToken);
+
+      navigate("/subscription");  // Navigate to the subscription page after login
     } catch (error) {
-      console.error("Login failed", error);
+      console.error("Login failed:", error);
+      setError(
+        error.response?.data?.message || "Login failed. Please try again."
+      );  // Display a user-friendly error message
     }
   };
 
@@ -28,6 +39,7 @@ function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
             className="w-full p-3 border rounded mb-4"
           />
           <input
@@ -35,6 +47,7 @@ function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
             className="w-full p-3 border rounded mb-4"
           />
           <button
@@ -44,6 +57,8 @@ function Login() {
             Login
           </button>
         </form>
+
+        {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
       </div>
     </div>
   );
