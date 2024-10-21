@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Subscription from "./components/Subscription";
-import InitiatePayment from "./components/InitiatePayment";
+
 import Layout from "./Layout";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./components/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import PaymentPage from "./components/PaymentPage";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
               path="/payment"
               element={
                 <PrivateRoute>
-                  <InitiatePayment />
+                  <PaymentPage />
                 </PrivateRoute>
               }
             />
