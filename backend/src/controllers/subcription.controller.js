@@ -48,7 +48,7 @@ const selectPlan = async (req, res) => {
 };
 
 const initiatePayment = async (req, res) => {
-  const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY); // Your secret Stripe API key
+  const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY); 
   const { subscriptionId, amount, customerName, customerEmail } = req.body;
 
   try {
