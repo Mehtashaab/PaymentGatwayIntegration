@@ -6,7 +6,7 @@ import { Elements, useStripe, useElements, CardElement } from '@stripe/react-str
 import Swal from 'sweetalert2';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from "react-icons/fa";
 
-const stripePromise = loadStripe('pk_test_51QBE7YGHmX43kIbHoWPZSe8WaEpQ9ZJZFL6WEQQu7aqQDNtRZZYKkDGqwwwU67Ug2GW9phaf3a8IZRs8EP28q5fb004vcPiJOS');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentForm = () => {
     const [message, setMessage] = useState('');
