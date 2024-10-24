@@ -106,7 +106,7 @@ const PaymentForm = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         paymentIntentId: paymentIntent.id,
-                        paymentStatus, // 'succeeded' or 'requires_payment_method' etc.
+                        paymentStatus, // 'succeeded' 
                         amount,
                         customerEmail,
                         customerName,

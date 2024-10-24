@@ -42,7 +42,7 @@ const paymentSchema = new mongoose.Schema({
     },
     stripeCustomerId: { 
         type: String, 
-        required: false  // Optional Stripe customer ID for future reference
+        required: false  
     },
     metadata: {
         type: Map, 
